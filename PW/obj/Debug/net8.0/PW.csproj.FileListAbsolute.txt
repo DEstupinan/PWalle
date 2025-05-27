@@ -1,0 +1,14 @@
+C:\Users\danie\Documents\GitHub\PWalle\PW\obj\Debug\net8.0\PW.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\danie\Documents\GitHub\PWalle\PW\obj\Debug\net8.0\PW.AssemblyInfoInputs.cache
+C:\Users\danie\Documents\GitHub\PWalle\PW\obj\Debug\net8.0\PW.AssemblyInfo.cs
+C:\Users\danie\Documents\GitHub\PWalle\PW\obj\Debug\net8.0\PW.csproj.CoreCompileInputs.cache
+C:\Users\danie\Documents\GitHub\PWalle\PW\bin\Debug\net8.0\PW.exe
+C:\Users\danie\Documents\GitHub\PWalle\PW\bin\Debug\net8.0\PW.deps.json
+C:\Users\danie\Documents\GitHub\PWalle\PW\bin\Debug\net8.0\PW.runtimeconfig.json
+C:\Users\danie\Documents\GitHub\PWalle\PW\bin\Debug\net8.0\PW.dll
+C:\Users\danie\Documents\GitHub\PWalle\PW\bin\Debug\net8.0\PW.pdb
+C:\Users\danie\Documents\GitHub\PWalle\PW\obj\Debug\net8.0\PW.dll
+C:\Users\danie\Documents\GitHub\PWalle\PW\obj\Debug\net8.0\refint\PW.dll
+C:\Users\danie\Documents\GitHub\PWalle\PW\obj\Debug\net8.0\PW.pdb
+C:\Users\danie\Documents\GitHub\PWalle\PW\obj\Debug\net8.0\PW.genruntimeconfig.cache
+C:\Users\danie\Documents\GitHub\PWalle\PW\obj\Debug\net8.0\ref\PW.dll
