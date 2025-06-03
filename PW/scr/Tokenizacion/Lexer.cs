@@ -1,30 +1,30 @@
 public class Lexer
 {
-    Dictionary<string, string> symbols = new Dictionary<string, string>();
-    Dictionary<string, string> keywords = new Dictionary<string, string>();
+    Dictionary<string, SymbolType> symbols = new Dictionary<string, SymbolType>();
+    Dictionary<string, KeywType> keywords = new Dictionary<string, KeywType>();
     private List<ITokenRule> _rules;
     public Lexer()
     {
-        AddtoDictionary(symbols, "+", "Sum");
-        AddtoDictionary(symbols, "-", "Rest");
-        AddtoDictionary(symbols, "*", "Mul");
-        AddtoDictionary(symbols, "/", "Div");
-        AddtoDictionary(symbols, "%", "Mod");
-        AddtoDictionary(symbols, "(", "PaI");
-        AddtoDictionary(symbols, ")", "PaD");
-        AddtoDictionary(symbols, "<", "Men");
-        AddtoDictionary(symbols, ">", "May");
-        AddtoDictionary(symbols, "==", "Igu");
-        AddtoDictionary(symbols, "[", "CorI");
-        AddtoDictionary(symbols, "]", "CorD");
-        AddtoDictionary(symbols, "&&", "And");
-        AddtoDictionary(symbols, "||", "Or");
-        AddtoDictionary(symbols, "**", "Pot");
-        AddtoDictionary(symbols, "<=", "menig");
-        AddtoDictionary(symbols, ">=", "mayotr ig");
-        AddtoDictionary(symbols, "<-", "Assign");
-       
-        AddtoDictionary(keywords, "GoTo", "Sum");
+
+        AddtoDictionary(symbols, "+", SymbolType.Sum);
+        AddtoDictionary(symbols, "-", SymbolType.Rest);
+        AddtoDictionary(symbols, "*", SymbolType.Mul);
+        AddtoDictionary(symbols, "/", SymbolType.Di);
+        AddtoDictionary(symbols, "%", SymbolType.Mo);
+        AddtoDictionary(symbols, "**", SymbolType.Po);
+        AddtoDictionary(symbols, "(", SymbolType.ParentIzq);
+        AddtoDictionary(symbols, ")", SymbolType.ParentDer);
+        AddtoDictionary(symbols, "[", SymbolType.CorchIzq);
+        AddtoDictionary(symbols, "]", SymbolType.CorchDer);
+        AddtoDictionary(symbols, "<-", SymbolType.Assign);
+        AddtoDictionary(symbols, "<", SymbolType.Menorq);
+        AddtoDictionary(symbols, "<=", SymbolType.MenorIgual);
+        AddtoDictionary(symbols, ">", SymbolType.Mayorq);
+        AddtoDictionary(symbols, ">=", SymbolType.MayorIgual);
+        AddtoDictionary(symbols, "==", SymbolType.Igual);
+        AddtoDictionary(symbols, "&&", SymbolType.And);
+        AddtoDictionary(symbols, "||", SymbolType.Or);
+        AddtoDictionaryK(keywords, "GoTo", KeywType.Goto);
 
         _rules = new List<ITokenRule>
         {
@@ -34,7 +34,11 @@ public class Lexer
         };
 
     }
-    private void AddtoDictionary(Dictionary<string, string> target, string key, string elemen)
+    private void AddtoDictionary(Dictionary<string, SymbolType> target, string key, SymbolType elemen)
+    {
+        target[key] = elemen;
+    }
+     private void AddtoDictionaryK(Dictionary<string, KeywType> target, string key, KeywType elemen)
     {
         target[key] = elemen;
     }

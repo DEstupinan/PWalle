@@ -12,23 +12,23 @@ public class Token
     public override string ToString() => $"{Type} ('{Value}') at {Location.Column}";
 }
 
-    public struct CodeLocation
-    {
-        
-        public string File;
-        public int Line;
-        public int Column;
-    }
+public struct CodeLocation
+{
+
+    public string File;
+    public int Line;
+    public int Column;
+}
 
 
-    public enum TokenType
-    {
-        Unknown,
-        Number,
-        
-        Keyword,
-        Identifier,
-        Symbol,
-        EndOfFile,
-    }
+public enum TokenType
+{
+    Unknown,
+    Number,
+
+    Keyword,
+    Identifier,
+    Symbol,
+    EndOfFile,
+}
 

@@ -1,10 +1,10 @@
 public class IdeKeyRule : ITokenRule
 {
-    private Dictionary<string, string> _keywords;
+    private Dictionary<string, KeywType> _keywords;
 
-    public IdeKeyRule(Dictionary<string, string> keywords)
+    public IdeKeyRule(Dictionary<string, KeywType> keywords)
     {
-        _keywords = new Dictionary<string, string>(keywords);
+        _keywords = new Dictionary<string, KeywType>(keywords);
     }
 
     public bool Match(TokenReader tr, out Token token)

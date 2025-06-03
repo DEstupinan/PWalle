@@ -1,9 +1,9 @@
 public class SymbolRule : ITokenRule
 {
-    private readonly Dictionary<string, string> _symbols;
-    public SymbolRule(Dictionary<string, string> symbols)
+    private readonly Dictionary<string, SymbolType> _symbols;
+    public SymbolRule(Dictionary<string, SymbolType> symbols)
     {
-        _symbols = new Dictionary<string, string>(symbols);
+        _symbols = new Dictionary<string, SymbolType>(symbols);
     }
     public bool Match(TokenReader tr, out Token token)
     {
