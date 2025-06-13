@@ -1,8 +1,28 @@
 ﻿Lexer lexer=new Lexer();
-List<Token> e=lexer.Tokenize("ee", File.ReadAllText("./code")  );
-Parser parser=new Parser(e);
+Enviroment enviroment=new Enviroment();
+WProgram program=new WProgram(enviroment);
+List<Token> e=lexer.Tokenize("ee", File.ReadAllText("./code"),program.Errors  );
+Parser parser=new Parser(e,enviroment);
+
+program.P=parser;
+
+
+ 
+
 /*for (int i=0; i<e.Count();i++)
 {
     Console.WriteLine(e[i]);
 }*/
-Console.WriteLine(parser.ParseLogic().Value.ToString());
+//program.Ejecutar();
+program.Sentenciar();
+if(program.Errors.Count()>0)
+{
+    foreach(Error x in program.Errors)
+    {
+        Console.WriteLine(x);
+    }
+}
+else program.Ejecutar();
+
+
+

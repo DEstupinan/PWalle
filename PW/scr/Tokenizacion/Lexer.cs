@@ -24,6 +24,8 @@ public class Lexer
         AddtoDictionary(symbols, "==", SymbolType.Igual);
         AddtoDictionary(symbols, "&&", SymbolType.And);
         AddtoDictionary(symbols, "||", SymbolType.Or);
+        AddtoDictionary(symbols, "!=", SymbolType.Desigual);
+        AddtoDictionary(symbols, "!", SymbolType.Neg);
         AddtoDictionaryK(keywords, "GoTo", KeywType.Goto);
 
         _rules = new List<ITokenRule>
@@ -38,19 +40,25 @@ public class Lexer
     {
         target[key] = elemen;
     }
-     private void AddtoDictionaryK(Dictionary<string, KeywType> target, string key, KeywType elemen)
+    private void AddtoDictionaryK(Dictionary<string, KeywType> target, string key, KeywType elemen)
     {
         target[key] = elemen;
     }
 
-    public List<Token> Tokenize(string fileName, string input)
+    public List<Token> Tokenize(string fileName, string input, List<Error> err)
     {
         var tokens = new List<Token>();
         TokenReader TR = new TokenReader(fileName, input);
 
         while (!TR.EOF)
         {
-            if (char.IsWhiteSpace(input[TR.pos]))
+            if (TR.EOL )
+            {
+                tokens.Add(new Token(TokenType.EndOfLine, "", TR.Location));
+                TR.ReadAny();
+                continue;
+            }
+            if (char.IsWhiteSpace(TR.code[TR.pos]))
             {
                 TR.ReadAny();
                 continue;
@@ -73,11 +81,12 @@ public class Lexer
             {
 
                 tokens.Add(new Token(TokenType.Unknown, input[TR.pos].ToString(), TR.Location));
+                err.Add(new Error(TR.Location, ErrorType.Invalid, "Invalid character"));
                 TR.ReadAny();
             }
         }
-
-        tokens.Add(new Token(TokenType.EndOfFile, string.Empty, TR.Location));
+        tokens.Add(new Token(TokenType.EndOfLine, "", TR.Location));
+        tokens.Add(new Token(TokenType.EndOfFile, "", TR.Location));
         return tokens;
     }
 
@@ -132,6 +141,7 @@ public class TokenReader
         return true;
 
     }
+
 
     public char ReadAny()
     {

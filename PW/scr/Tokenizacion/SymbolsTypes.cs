@@ -18,6 +18,8 @@ public enum SymbolType
     MayorIgual,
     And,
     Or,
+    Neg,
+    Desigual
 
 }
 public enum KeywType

@@ -11,6 +11,8 @@ public class IdeKeyRule : ITokenRule
     {
         string value = "";
         CodeLocation l = tr.Location;
+        bool leb = false;
+        if (tr.pos == 0 || tr.code[tr.pos - 1].ToString() == "\n") leb = true;
         if (!tr.EOF && (char.IsLetter(tr.code[tr.pos]) || tr.code[tr.pos] == '_'))
         {
             value += tr.ReadAny();
@@ -20,6 +22,30 @@ public class IdeKeyRule : ITokenRule
             }
 
             TokenType type = TokenType.Identifier;
+            if (leb)
+            {
+                if (tr.EOF)
+                {
+                    type = TokenType.Label;
+
+                }
+                while (!tr.EOF)
+                {
+                    if (tr.EOL)
+                    {
+                        type = TokenType.Label;
+                        break;
+                    }
+                    if (char.IsWhiteSpace(tr.code[tr.pos]))
+                    {
+                        tr.ReadAny();
+                        continue;
+                    }
+                    break;
+                }
+            }
+
+
 
             foreach (var ke in _keywords.Keys)
             {

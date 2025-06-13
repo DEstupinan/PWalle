@@ -13,7 +13,7 @@ public class Number : ExpresionUnitaria
     {
         Value = value;
     }
-    public override bool Check()
+    public override bool Check(List<Error> err)
     {
         return true;
     }

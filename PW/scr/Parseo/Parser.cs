@@ -1,152 +1,267 @@
 public class Parser
 {
 
-    private List<Token> tokens;
-    private int indiceToken;
-    public Parser(List<Token> tokens)
+    public List<Token> tokens;
+    public Enviroment Env;
+    public TokenStream TS;
+    public Parser(List<Token> tokens, Enviroment env)
     {
         this.tokens = tokens;
-        this.indiceToken = 0;
-    }
-    private string ct
-    {
-        get { return tokens[indiceToken].Value.ToString(); }
-    }
-    private CodeLocation cl
-    {
-        get { return tokens[indiceToken].Location; }
+        Env = env;
+
+        TS = new TokenStream(tokens);
     }
 
-    public Expresion ParseLogic()
+    public Expresion ParseExpresion(List <Error> err)
     {
-        return FirstLogic();
-    }
-    private Expresion FirstLogic()
+        return Disyuntiva();
+    
+     Expresion Disyuntiva()
     {
-        Expresion left = SecondLogic();
-        while (indiceToken < tokens.Count && ct == "||")
+        Expresion left = Copulativa();
+        while (TS.Match(new string[] { "||" }))
+
         {
-            ExpresionBinaria r = new Or(cl);
+            ExpresionBinaria r = new Or(TS.Previous().Location);
+
+            Expresion right = Copulativa();
             r.Left = left;
-            indiceToken++;
-            Expresion right = SecondLogic();
             r.Right = right;
-            r.Calculate();
-            left.Value = r.Value;
+
+            left = r;
         }
         return left;
     }
-
-    private Expresion SecondLogic()
+     Expresion Copulativa()
     {
-        Expresion left = BasicLogic();
-        while (indiceToken < tokens.Count && ct == "&&")
+        Expresion left = Igualdad();
+        while (TS.Match(new string[] { "&&" }))
+
         {
-            ExpresionBinaria r = new And(cl);
+            ExpresionBinaria r = new And(TS.Previous().Location);
+            Expresion right = Igualdad();
             r.Left = left;
-            indiceToken++;
-            Expresion right = BasicLogic();
             r.Right = right;
-            r.Calculate();
-            left.Value = r.Value;
+
+            left = r;
         }
         return left;
     }
-    private Expresion BasicLogic()
+     Expresion Igualdad()
     {
-        Expresion left = ParseExpresion();
-        while (indiceToken < tokens.Count && (ct == "<" || ct == "<=" || ct == ">" || ct == ">=" || ct == "=="))
-        {
+        Expresion left = Comparación();
+        while (TS.Match(new string[] { "==", "!=" }))
 
-            ExpresionBinaria r = new Igual(cl);
-            switch (ct)
+        {
+            ExpresionBinaria r = new Igual(TS.Previous().Location);
+            switch (TS.Previous().Value.ToString())
             {
-                case ">": r = new Mayor(cl); break;
-                case "<": r = new Menor(cl); break;
-                case ">=": r = new MayorIgual(cl); break;
-                case "<=": r = new MenorIgual(cl); break;
+                case "!=": r = new Desigual(TS.Previous().Location); break;
                 default: break;
             }
+            Expresion right = Comparación();
             r.Left = left;
-            indiceToken++;
-            Expresion right = ParseExpresion();
             r.Right = right;
-            r.Calculate();
-            left.Value = r.Value;
+
+            left = r;
         }
         return left;
     }
-    public Expresion ParseExpresion()
-    {
-        return BasicExpresion();
-    }
-    private Expresion BasicExpresion()
+     Expresion Comparación()
     {
         Expresion left = Termino();
-        while (indiceToken < tokens.Count && (ct == "+" || ct == "-"))
+        while (TS.Match(new string[] { "<", "<=", ">", ">=" }))
+
         {
-            ExpresionBinaria r = new Suma(cl);
-            if (ct == "-")
+            ExpresionBinaria r = new Mayor(TS.Previous().Location);
+            switch (TS.Previous().Value.ToString())
             {
-                r = new Resta(cl);
+                case "<": r = new Menor(TS.Previous().Location); break;
+                case ">=": r = new MayorIgual(TS.Previous().Location); break;
+                case "<=": r = new MenorIgual(TS.Previous().Location); break;
+                default: break;
             }
-            r.Left = left;
-            indiceToken++;
             Expresion right = Termino();
-            r.Right = right;
-            r.Calculate();
-            left.Value = r.Value;
-        }
-        return left;
-    }
-    private Expresion Termino()
-    {
-        Expresion left = Potencia();
-        while (indiceToken < tokens.Count && (ct == "*" || ct == "/" || ct == "%"))
-        {
-            ExpresionBinaria r = new Mult(cl);
-            r = new Mult(cl);
-            if (ct == "/")
-            {
-                r = new Div(cl);
-            }
-            if (ct == "%")
-            {
-                r = new Mod(cl);
-            }
             r.Left = left;
-            indiceToken++;
-            Expresion right = Potencia();
             r.Right = right;
-            r.Calculate();
-            left.Value = r.Value;
+
+            left = r;
         }
         return left;
     }
-    private Expresion Potencia()
+     Expresion Termino()
     {
         Expresion left = Factor();
-        while (indiceToken < tokens.Count && ct == "**")
+        while (TS.Match(new string[] { "+", "-" }))
+
         {
-            ExpresionBinaria r = new Pow(cl);
-            r.Left = left;
-            indiceToken++;
+            ExpresionBinaria r = new Suma(TS.Previous().Location);
+            switch (TS.Previous().Value.ToString())
+            {
+                case "-": r = new Resta(TS.Previous().Location); break;
+                default: break;
+            }
             Expresion right = Factor();
+            r.Left = left;
             r.Right = right;
-            r.Calculate();
-            left.Value = r.Value;
+
+            left = r;
         }
         return left;
     }
-
-    private Expresion Factor()
+     Expresion Factor()
     {
-        if (tokens[indiceToken].Type == TokenType.Number)
+        Expresion left = Elev();
+        while (TS.Match(new string[] { "*", "/", "%" }))
+
         {
-            Number Left = new Number(double.Parse(tokens[indiceToken].Value), cl);
-            indiceToken++;
-            return Left;
+            ExpresionBinaria r = new Mult(TS.Previous().Location);
+            switch (TS.Previous().Value.ToString())
+            {
+                case "/": r = new Div(TS.Previous().Location); break;
+                case "%": r = new Mod(TS.Previous().Location); break;
+                default: break;
+            }
+            Expresion right = Elev();
+            r.Left = left;
+            r.Right = right;
+
+            left = r;
         }
+        return left;
+    }
+     Expresion Elev()
+    {
+        Expresion left = Unary();
+        while (TS.Match(new string[] { "**" }))
+
+        {
+            ExpresionBinaria r = new Pow(TS.Previous().Location);
+            Expresion right = Unary();
+            r.Left = left;
+            r.Right = right;
+
+            left = r;
+        }
+        return left;
+    }
+     Expresion Unary()
+    {
+
+        if (TS.Match(new string[] { "-", "!" }))
+
+        {
+            Expresion right = Unary();
+            switch (TS.Previous().Value.ToString())
+            {
+                case "-": right.Value = (double)right.Value * (-1); break;
+                case "!": right.Value = !(bool)right.Value; break;
+                default: break;
+            }
+
+            return right;
+
+        }
+        return Primario();
+    }
+     Expresion Primario()
+    {
+        if (TS.Peek().Type == TokenType.Number)
+        {
+            Number Left = new Number(double.Parse(TS.Peek().Value), TS.Peek().Location);
+            TS.Advance();
+            return Left;
+
+        }
+        if (TS.Peek().Type == TokenType.Identifier)
+        {
+            Literal Left = new Literal(TS.Peek().Value.ToString(), Env, TS.Peek().Location);
+            TS.Advance();
+            return Left;
+
+        }
+        if (TS.Match(new string[] { "(" }))
+
+        {
+            Expresion left = ParseExpresion(err);
+            TS.Consume(")","Expect ')' after expression.",err);
+            return left;
+        }
+         err.Add(new Error(TS.Peek().Location,ErrorType.Expected,"Expect expression"));
+         return null;
+    }
+    }
+
+}
+public class TokenStream
+{
+    private List<Token> tokens;
+    private int position;
+    public TokenStream(List<Token> tokens)
+    {
+        this.tokens = tokens;
+        position = 0;
+    }
+    public bool Match(string[] types)
+    {
+        foreach (string x in types)
+        {
+            if (Check(x))
+            {
+                Advance();
+                return true;
+
+            }
+        }
+        return false;
+    }
+    public Token Consume(string type, string mensaje,List <Error> err)
+    {
+        if (Check(type)) return Advance();
+
+        err.Add(new Error(Peek().Location,ErrorType.Expected,mensaje));
         return null;
     }
+    public Token Consume(TokenType type, string mensaje,List <Error> err)
+    {
+        if (Check(type)) return Advance();
+
+         err.Add(new Error(Peek().Location,ErrorType.Expected,mensaje));
+         return null;
+    }
+
+    public bool Check(string type)
+    {
+        if (IsAtEnd()) return false;
+        return Peek().Value.ToString() == type;
+
+    }
+    public bool Check(TokenType type)
+    {
+        if (IsAtEnd()) return false;
+        return Peek().Type == type;
+
+    }
+
+
+    public Token Peek()
+    {
+        return tokens[position];
+    }
+    public Token Previous()
+    {
+        return tokens[position - 1];
+    }
+    public Token Advance()
+    {
+        if (!IsAtEnd()) position++;
+        return Previous();
+    }
+    public bool IsAtEnd()
+    {
+        return Peek().Type == TokenType.EndOfFile;
+
+    }
+
+
 }

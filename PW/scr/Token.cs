@@ -28,7 +28,9 @@ public enum TokenType
 
     Keyword,
     Identifier,
+    Label,
     Symbol,
+    EndOfLine,
     EndOfFile,
 }
 
