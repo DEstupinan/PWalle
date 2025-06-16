@@ -9,7 +9,7 @@ public class Igual : ExpresionBinaria
     {
         Right.Calculate();
         Left.Calculate();
-        if ((double)Left.Value == (double)Right.Value) Value = (bool)true;
+        if (Left.Value == Right.Value) Value = (bool)true;
         else Value = (bool)false;
     }
 

@@ -15,12 +15,7 @@ public class GoTo : Statement
     public override void Execute(List<Error> err)
     {
         
-
-
             Program.index = Program.Labels[Label];
-
-
-        
 
     }
     public override bool Check(List<Error> err)
