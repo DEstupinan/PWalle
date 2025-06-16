@@ -11,7 +11,7 @@ public class IsBrushSize : ReturnFunction
     }
     public override object Call(List<Expresion> arguments)
     {
-        return pintar.IsBrushSize(Convert.ToInt32(arguments[0].Value));
+        return pintar.IsBrushSize((int)arguments[0].Value);
     }
 
     public override ExpressionType Type

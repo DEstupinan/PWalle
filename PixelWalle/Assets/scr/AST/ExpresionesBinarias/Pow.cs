@@ -11,7 +11,7 @@ public class Pow : ExpresionBinaria
     {
         Right.Calculate();
         Left.Calculate();
-        Value = Math.Pow((double)Left.Value, (double)Right.Value);
+        Value = Math.Pow((int)Left.Value, (int)Right.Value);
     }
 
     public override bool Check(List<Error> err)

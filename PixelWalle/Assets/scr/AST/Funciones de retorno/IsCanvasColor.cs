@@ -23,7 +23,7 @@ public class IsCanvasColor : ReturnFunction
     };
     public override object Call(List<Expresion> arguments)
     {
-        return pintar.IsCanvasColor(arguments[0].Value.ToString(), Convert.ToInt32(arguments[1].Value), Convert.ToInt32(arguments[2].Value));
+        return pintar.IsCanvasColor(arguments[0].Value.ToString(), (int)arguments[1].Value, (int)arguments[2].Value);
     }
 
     public override ExpressionType Type

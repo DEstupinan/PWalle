@@ -12,7 +12,7 @@ public  class Size : Function
     }
     public override void Call(List<Expresion> arguments)
     {
-        pintar.Size(Convert.ToInt32(arguments[0].Value));
+        pintar.Size((int)arguments[0].Value);
     }
     public override bool Check(CodeLocation location, List<Error> err,List<Expresion> arguments)
     {
@@ -35,7 +35,7 @@ public  class Size : Function
             err.Add(new Error(arguments[0].Location, ErrorType.Invalid, "Argument 1 must be numerical expresion"));
             return  false;
         }
-        if ((double)arguments[0].Value <1 )
+        if ((int)arguments[0].Value <1 )
         {
             err.Add(new Error(arguments[0].Location, ErrorType.Invalid, "Argument 1  must be greater than 1"));
             return  false;

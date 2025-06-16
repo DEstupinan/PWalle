@@ -9,7 +9,7 @@ public class Mult : ExpresionBinaria
     {
         Right.Calculate();
         Left.Calculate();
-        Value = (double)Right.Value * (double)Left.Value;
+        Value = (int)Right.Value * (int)Left.Value;
     }
     public override bool Check(List<Error> err)
     {

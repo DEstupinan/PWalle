@@ -12,9 +12,9 @@ public class DrawRectangle : Function
 
     public override void Call(List<Expresion> arguments)
     {
-        pintar.DrawRectangle(Convert.ToInt32(arguments[0].Value),
-         Convert.ToInt32(arguments[1].Value), Convert.ToInt32(arguments[2].Value),Convert.ToInt32(arguments[3].Value),
-          Convert.ToInt32(arguments[4].Value));
+        pintar.DrawRectangle((int)arguments[0].Value,
+         (int)arguments[1].Value, (int)arguments[2].Value,(int)arguments[3].Value,
+          (int)arguments[4].Value);
     }
     public override bool Check(CodeLocation location, List<Error> err, List<Expresion> arguments)
     {
@@ -34,7 +34,7 @@ public class DrawRectangle : Function
         }
         for (int i = 0; i < 2; i++)
         {
-            if (arguments[i].Type != ExpressionType.Number || ((double)arguments[i].Value != 0 && (double)arguments[i].Value != 1 && (double)arguments[i].Value != -1))
+            if (arguments[i].Type != ExpressionType.Number || ((int)arguments[i].Value != 0 && (int)arguments[i].Value != 1 && (int)arguments[i].Value != -1))
             {
                 err.Add(new Error(arguments[i].Location, ErrorType.Invalid, $"Argument {i + 1} must be '-1', '0' or '1'"));
                 ret = false;
@@ -43,7 +43,7 @@ public class DrawRectangle : Function
         }
          for (int i = 2; i < 5; i++)
         {
-            if (arguments[i].Type != ExpressionType.Number ||  (double)arguments[i].Value<0)
+            if (arguments[i].Type != ExpressionType.Number ||  (int)arguments[i].Value<0)
             {
                 err.Add(new Error(arguments[i].Location, ErrorType.Invalid, $"Argument {i + 1} must be positive expresion"));
                 ret = false;

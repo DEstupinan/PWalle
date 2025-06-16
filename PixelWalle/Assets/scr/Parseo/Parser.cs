@@ -176,7 +176,7 @@ public class Parser
             }
             if (TS.Peek().Type == TokenType.Number)
             {
-                Number Left = new Number(double.Parse(TS.Peek().Value), TS.Peek().Location);
+                Number Left = new Number(int.Parse(TS.Peek().Value), TS.Peek().Location);
                 TS.Advance();
                 return Left;
 

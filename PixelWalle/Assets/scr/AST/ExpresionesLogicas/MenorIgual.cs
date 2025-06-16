@@ -9,7 +9,7 @@ public class MenorIgual : ExpresionBinaria
     {
         Right.Calculate();
         Left.Calculate();
-        if ((double)Left.Value <= (double)Right.Value) Value = (bool)true;
+        if ((int)Left.Value <= (int)Right.Value) Value = (bool)true;
         else Value = (bool)false;
     }
 

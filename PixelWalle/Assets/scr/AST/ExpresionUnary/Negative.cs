@@ -12,7 +12,7 @@ public class Negative : ExpresionUnary
     {
         Right.Calculate();
 
-        Value = (double)Right.Value * (-1);
+        Value = (int)Right.Value * (-1);
     }
 
     public override bool Check(List<Error> err)

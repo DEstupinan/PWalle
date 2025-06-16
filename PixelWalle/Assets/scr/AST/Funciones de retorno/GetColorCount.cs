@@ -23,8 +23,8 @@ public class GetColorCount : ReturnFunction
     };
     public override object Call(List<Expresion> arguments)
     {
-        return pintar.GetColorCount(arguments[0].Value.ToString(), Convert.ToInt32(arguments[1].Value), Convert.ToInt32(arguments[2].Value)
-        , Convert.ToInt32(arguments[3].Value), Convert.ToInt32(arguments[4].Value));
+        return pintar.GetColorCount(arguments[0].Value.ToString(), (int)arguments[1].Value, (int)arguments[2].Value
+        , (int)arguments[3].Value, (int)arguments[4].Value);
     }
 
     public override ExpressionType Type

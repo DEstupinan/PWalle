@@ -9,7 +9,7 @@ public class Mod : ExpresionBinaria
     {
         Right.Calculate();
         Left.Calculate();
-        Value = (double)Left.Value % (double)Right.Value;
+        Value = (int)Left.Value % (int)Right.Value;
     }
     public override bool Check(List<Error> err)
     {

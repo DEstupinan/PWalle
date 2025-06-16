@@ -13,7 +13,7 @@ public class Spawn : Function
     public override void Call(List<Expresion> arguments)
     {
         used = true;
-        pintar.Spawn(Convert.ToInt32(arguments[0].Value), Convert.ToInt32(arguments[1].Value));
+        pintar.Spawn((int)arguments[0].Value, (int)arguments[1].Value);
     }
     public override bool Check(CodeLocation location, List<Error> err, List<Expresion> arguments)
     {
@@ -45,14 +45,14 @@ public class Spawn : Function
             }
             if (!ret) return false;
         }
-        if (Convert.ToInt32(arguments[0].Value) < 0
-            || Convert.ToInt32(arguments[0].Value) >= pintar.board.boardSize)
+        if ((int)arguments[0].Value < 0
+            || (int)arguments[0].Value >= pintar.board.boardSize)
         {
             err.Add(new Error(arguments[0].Location, ErrorType.Invalid, $"Invalid position"));
             ret = false;
         }
-        if (Convert.ToInt32(arguments[1].Value) < 0
-           || Convert.ToInt32(arguments[1].Value) >= pintar.board.boardSize)
+        if ((int)arguments[1].Value < 0
+           || (int)arguments[1].Value >= pintar.board.boardSize)
         {
             err.Add(new Error(arguments[1].Location, ErrorType.Invalid, $"Invalid position"));
             ret = false;

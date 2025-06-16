@@ -35,7 +35,7 @@ public class DrawLine : Function
 
         for (int i = 0; i < arguments.Count() - 1; i++)
         {
-            if (arguments[i].Type != ExpressionType.Number || ((double)arguments[i].Value != 0 && (double)arguments[i].Value != 1 && (double)arguments[i].Value != -1))
+            if (arguments[i].Type != ExpressionType.Number || ((int)arguments[i].Value != 0 && (int)arguments[i].Value != 1 && (int)arguments[i].Value != -1))
 
             {
                 err.Add(new Error(arguments[i].Location, ErrorType.Invalid, $"Argument {i + 1} must be '-1', '0' or '1'"));

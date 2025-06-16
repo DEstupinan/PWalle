@@ -19,7 +19,7 @@ public class WProgram
     public void EjecutarTag()
     {
         index = 0;
-        if (!(stmt[0] is FunctionDeclaration f) || f.Name != "Spawn")
+        if (stmt.Count>0 &&( !(stmt[0] is FunctionDeclaration f) || f.Name != "Spawn"))
         {
             Errors.Add(new Error(stmt[0].Location, ErrorType.Invalid, "Expected Spawn command"));
             haderror = true;

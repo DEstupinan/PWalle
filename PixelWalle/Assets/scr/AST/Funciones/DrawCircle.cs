@@ -12,7 +12,7 @@ public class DrawCircle : Function
 
     public override void Call(List<Expresion> arguments)
     {
-        pintar.DrawCircle(Convert.ToInt32(arguments[0].Value), Convert.ToInt32(arguments[1].Value), Convert.ToInt32(arguments[2].Value));
+        pintar.DrawCircle((int)arguments[0].Value, (int)arguments[1].Value, (int)arguments[2].Value);
     }
     public override bool Check(CodeLocation location, List<Error> err, List<Expresion> arguments)
     {
@@ -33,7 +33,7 @@ public class DrawCircle : Function
 
         for (int i = 0; i < arguments.Count() - 1; i++)
         {
-            if (arguments[i].Type != ExpressionType.Number || ((double)arguments[i].Value != 0 && (double)arguments[i].Value != 1 && (double)arguments[i].Value != -1))
+            if (arguments[i].Type != ExpressionType.Number || ((int)arguments[i].Value != 0 && (int)arguments[i].Value != 1 && (int)arguments[i].Value != -1))
             {
                 err.Add(new Error(arguments[i].Location, ErrorType.Invalid, $"Argument {i + 1} must be '-1', '0' or '1'"));
                 ret = false;

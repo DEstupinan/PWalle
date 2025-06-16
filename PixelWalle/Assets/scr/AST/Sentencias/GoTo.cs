@@ -14,7 +14,7 @@ public class GoTo : Statement
     }
     public override void Execute(List<Error> err)
     {
-        
+        if((bool)Condition.Value)
             Program.index = Program.Labels[Label];
 
     }

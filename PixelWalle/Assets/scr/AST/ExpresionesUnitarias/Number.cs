@@ -10,7 +10,7 @@ public class Number : ExpresionUnitaria
         set { }
     }
     public override object Value{ get; set; }
-    public Number(double value, CodeLocation location) : base(location)
+    public Number(int value, CodeLocation location) : base(location)
     {
         Value = value;
     }
