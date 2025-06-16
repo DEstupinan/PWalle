@@ -1,0 +1,29 @@
+public enum SymbolType
+{
+    Sum,
+    Rest,
+    Mul,
+    Di,
+    Mo,
+    Po,
+    ParentIzq,
+    ParentDer,
+    CorchIzq,
+    CorchDer,
+    Assign,
+    Igual,
+    Menorq,
+    MenorIgual,
+    Mayorq,
+    MayorIgual,
+    And,
+    Or,
+    Neg,
+    Desigual,
+    Coma,
+    Comilla,
+}
+public enum KeywType
+{
+    Goto,
+}
