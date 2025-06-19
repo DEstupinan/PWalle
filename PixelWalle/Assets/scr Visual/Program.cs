@@ -8,6 +8,7 @@ using TMPro;
 public class Program : MonoBehaviour
 {
     public TMP_InputField codeInput;
+    public TMP_InputField size;
     public Pintar pintar;
     public TMP_Text error;
     public Lexer lexer;
@@ -23,8 +24,10 @@ public class Program : MonoBehaviour
 
     public void Compile()
     {   
+        int s=int.Parse(size.text);
         
-        pintar.board.InitializeBoard();
+        pintar.board.InitializeBoard(s);
+        
         pintar.walle.Reset();
         error.text="";
         lexer = new Lexer();

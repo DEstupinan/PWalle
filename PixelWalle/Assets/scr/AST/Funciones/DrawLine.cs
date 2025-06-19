@@ -43,11 +43,11 @@ public class DrawLine : Function
             }
 
         }
-        if (arguments[2].Type != ExpressionType.Number)
-        {
-            err.Add(new Error(arguments[2].Location, ErrorType.Invalid, "Argument 3 must be numerical expresion"));
-            ret = false;
-        }
+        if (arguments[2].Type != ExpressionType.Number ||  (int)arguments[2].Value<0)
+            {
+                err.Add(new Error(arguments[2].Location, ErrorType.Invalid, $"Argument 3 must be positive expresion"));
+                ret = false;
+            }
         return ret;
     }
 

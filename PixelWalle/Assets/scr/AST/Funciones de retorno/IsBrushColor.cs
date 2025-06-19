@@ -55,7 +55,7 @@ public class IsBrushColor : ReturnFunction
         }
         if (arguments[0].Type != ExpressionType.Text)
         {
-            err.Add(new Error(arguments[0].Location, ErrorType.Invalid, "Argument 1 most be string expresion"));
+            err.Add(new Error(arguments[0].Location, ErrorType.Invalid, "Argument 1 must be string expresion"));
             return false;
         }
         if (!colors.Contains(arguments[0].Value))

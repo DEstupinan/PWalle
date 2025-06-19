@@ -8,8 +8,17 @@ public class Pintar : MonoBehaviour
 
     public void Spawn(int x, int y)
     {
-        walle.position.x = x;
-        walle.position.y = y;
+        if (Check(x, y))
+        {
+            walle.position.x = x;
+            walle.position.y = y;
+        }
+        else
+        {
+            walle.position.x = 0;
+            walle.position.y = 0;
+        }
+
     }
     public void ChangeColor(string c)
     {
@@ -181,7 +190,7 @@ public class Pintar : MonoBehaviour
     }
     public int IsCanvasColor(string color, int horizontal, int vertical)
     {
-        Color targetColor=Color.clear;
+        Color targetColor = Color.clear;
         switch (color)
         {
             case "Red": targetColor = Color.red; break;
@@ -204,13 +213,13 @@ public class Pintar : MonoBehaviour
                 return 0;
             default: break;
         }
-        if(!Check(walle.position.x + horizontal, walle.position.y + vertical))return 0;
+        if (!Check(walle.position.x + horizontal, walle.position.y + vertical)) return 0;
         if (board.pixels[walle.position.x + horizontal, walle.position.y + vertical] == targetColor) return 1;
         return 0;
     }
     public int IsBrushColor(string color)
     {
-        Color targetColor=Color.clear;
+        Color targetColor = Color.clear;
         switch (color)
         {
             case "Red": targetColor = Color.red; break;
@@ -239,7 +248,7 @@ public class Pintar : MonoBehaviour
     }
     public int GetColorCount(string color, int x1, int y1, int x2, int y2)
     {
-        Color targetColor=Color.clear;
+        Color targetColor = Color.clear;
         switch (color)
         {
             case "Red": targetColor = Color.red; break;

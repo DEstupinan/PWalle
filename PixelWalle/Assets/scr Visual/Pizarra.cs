@@ -22,9 +22,9 @@ public class Pizarra : MonoBehaviour
     }
 
 
-    public void InitializeBoard()
+    public void InitializeBoard(int x)
     {
-
+        if (x != null) boardSize = x;
         drawingTexture = new Texture2D(
             boardSize,
             boardSize,
@@ -70,7 +70,7 @@ public class Pizarra : MonoBehaviour
         {
             for (int j = y - walle.Size / 2; j <= y + walle.Size / 2; j++)
             {
-                if (Check (i,j) && !walle.none) pixels[i, boardSize - 1 - j] = walle.BrushColor;
+                if (Check(i, j) && !walle.none) pixels[i, boardSize - 1 - j] = walle.BrushColor;
             }
         }
 

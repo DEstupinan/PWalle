@@ -38,11 +38,11 @@ public class IsBrushSize : ReturnFunction
             }
             else return false;
         }
-        if (arguments[0].Type != ExpressionType.Logic)
-        {
-            err.Add(new Error(arguments[0].Location, ErrorType.Invalid, "Argument 1 most be bool expresion"));
-            ret = false;
-        }
+         if (arguments[0].Type != ExpressionType.Number ||  (int)arguments[0].Value<0)
+            {
+                err.Add(new Error(arguments[0].Location, ErrorType.Invalid, $"Argument 1 must be positive expresion"));
+                ret = false;
+            }
         return ret;
     }
 

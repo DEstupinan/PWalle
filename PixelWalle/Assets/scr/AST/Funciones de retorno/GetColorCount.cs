@@ -63,9 +63,9 @@ public class GetColorCount : ReturnFunction
         }
         for (int i = 1; i < arguments.Count(); i++)
         {
-            if (arguments[i].Type != ExpressionType.Number)
+           if (arguments[i].Type != ExpressionType.Number ||  (int)arguments[i].Value<0)
             {
-                err.Add(new Error(arguments[i].Location, ErrorType.Invalid, $"Argument {i + 1} most be numerical expression"));
+                err.Add(new Error(arguments[i].Location, ErrorType.Invalid, $"Argument {i + 1} must be positive expresion"));
                 ret = false;
             }
 
